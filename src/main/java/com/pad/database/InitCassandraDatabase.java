@@ -13,7 +13,7 @@ public class InitCassandraDatabase {
             //вставляем все данные в таблицу
             cdb.insertDataToCDB();
             //вывод данных из таблицы
-            cdb.getDataFromCDB();
+            cdb.showDataFromCDB();
 
             //удаление записи
             cdb.deleteDataInCDB(10);
@@ -22,7 +22,7 @@ public class InitCassandraDatabase {
             //изменение записи
             cdb.updateDataInCDB(10, "Fukiko", "Ogisu", "Operations", 500000);
 
-            cdb.getDataFromCDB();
+            cdb.showDataFromCDB();
             //закрываем соединение
             cdb.closeConnectToCDB();
 

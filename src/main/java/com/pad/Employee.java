@@ -9,13 +9,6 @@ public class Employee implements Serializable {
     private String department;
     private Double salary;
 
-    public Employee(String firstName, String lastName, String department, Double salary) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.department = department;
-        this.salary = salary;
-    }
-
     public Employee(int id, String firstName, String lastName, String department, Double salary) {
         this.id = id;
         this.firstName = firstName;

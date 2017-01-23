@@ -3,12 +3,10 @@ package com.pad.warehouse;
 import com.pad.Data;
 import com.pad.Employee;
 import com.pad.database.CDB;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +14,11 @@ import java.util.List;
  */
 @RestController
 public class RequestHandler {
-
+    //http://localhost:8081/GET/employee?id=1
+    //http://localhost:8081/GET/ALL
+    //http://localhost:8081/DELTE/employee?id=5
+    //http://localhost:8081/PUT/employee?id=5&firstname=yuf&lastname=vl&department=it&salary=10000
+    //http://localhost:8081/UPDATE/employee?id=5&firstname=yuf&lastname=vl&department=it&salary=10000
     @RequestMapping("/GET/employee")
     public Employee getEmployeeById(@RequestParam(value="id", required=false, defaultValue="0") int id) {
         return Data.getInstance()
@@ -47,11 +49,22 @@ public class RequestHandler {
                                @RequestParam("department") String department,
                                @RequestParam("salary") Double salary
                                ) {
-        //System.out.println(id+firstName+lastName+department+salary);
-        //http://localhost:8081/PUT/employee?id=5&firstname=yuf&lastname=vl&department=it&salary=10000
         CDB cdb = new CDB();
         cdb.openConnectToCDB();
         cdb.insertRecordToDB(id,firstName, lastName, department,salary);
+        cdb.closeConnectToCDB();
+    }
+
+    @RequestMapping("/UPDATE/employee")
+    public void updateEmployee(@RequestParam("id") int id,
+                               @RequestParam("firstname") String firstName,
+                               @RequestParam("lastname") String lastName,
+                               @RequestParam("department") String department,
+                               @RequestParam("salary") Double salary
+    ) {
+        CDB cdb = new CDB();
+        cdb.openConnectToCDB();
+        cdb.updateDataInCDB(id,firstName, lastName, department,salary);
         cdb.closeConnectToCDB();
     }
 }

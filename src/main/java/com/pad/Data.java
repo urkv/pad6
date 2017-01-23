@@ -8,15 +8,14 @@ import java.util.List;
  */
 public class Data {
     private static Data ourInstance = new Data();
+    private List<Employee> employees = new ArrayList<>();
+
+    private Data() {
+    }
 
     public static Data getInstance() {
         return ourInstance;
     }
-
-    private Data() {
-    }
-    private List<Employee> employees = new ArrayList<>();
-
     public List<Employee> getEmployees() {
         return employees;
     }
