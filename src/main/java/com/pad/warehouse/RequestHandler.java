@@ -15,8 +15,8 @@ import java.util.List;
 @RestController
 public class RequestHandler {
     //http://localhost:8081/GET/employee?id=1
-    //http://localhost:8081/GET/ALL
-    //http://localhost:8081/DELTE/employee?id=5
+    //http://localhost:8081/GET/employee/ALL
+    //http://localhost:8081/DELETE/employee?id=5
     //http://localhost:8081/PUT/employee?id=5&firstname=yuf&lastname=vl&department=it&salary=10000
     //http://localhost:8081/UPDATE/employee?id=5&firstname=yuf&lastname=vl&department=it&salary=10000
     @RequestMapping("/GET/employee")

@@ -56,7 +56,7 @@ public class CDB {
 
     //добавление записей в таблицу
     public void insertDataToCDB(){
-        String insert_into = "INSERT INTO employees (emp_id, firstname, lastname, department, salary) ";
+        String insert_into = "INSERT INTO staff.employees (emp_id, firstname, lastname, department, salary) ";
         String insert_values1 = "VALUES(1, 'Serj', 'Litovchenko', 'Administration', 100000) IF NOT EXISTS;";
         String insert_values2 = "VALUES(2, 'Andrew', 'Dixon', 'Product Development', 70000) IF NOT EXISTS;";
         String insert_values3 = "VALUES(3, 'Anthony', 'Chor', 'IS', 40000) IF NOT EXISTS;";
@@ -97,7 +97,7 @@ public class CDB {
 
     //вывод записей из таблицы
     public void showDataFromCDB(){
-        String select_query = "SELECT * FROM employees";
+        String select_query = "SELECT * FROM staff.employees";
         //получаем записи таблицы
         ResultSet query_result = session.execute(select_query);
         System.out.println("Table employees:");
@@ -109,7 +109,7 @@ public class CDB {
     //возвращает список сотрудников из таблици
     public List<Employee> getDataFromCDB(){
         List<Employee> employees = new ArrayList<Employee>();
-        String select_query = "SELECT * FROM employees";
+        String select_query = "SELECT * FROM staff.employees";
         //получаем записи таблицы
         ResultSet query_result = session.execute(select_query);
         System.out.println("Table employees:");
@@ -127,18 +127,18 @@ public class CDB {
 
     //обновить запись по id
     public void updateDataInCDB(int emp_id, String firstname, String lastname, String department, double salary){
-        session.execute("UPDATE employees set firstname = ?, lastname = ?, department = ?, salary = ? WHERE emp_id = ?",
+        session.execute("UPDATE staff.employees set firstname = ?, lastname = ?, department = ?, salary = ? WHERE emp_id = ?",
                 firstname, lastname, department, salary, emp_id);
     }
 
     //удалить запись по id
     public void deleteDataInCDB(int emp_id){
-        session.execute("DELETE FROM employees WHERE emp_id = ?", emp_id);
+        session.execute("DELETE FROM staff.employees WHERE emp_id = ?", emp_id);
     }
 
     //вставить запись
     public void insertRecordToDB(int emp_id, String firstname, String lastname, String department, double salary){
-        session.execute("INSERT INTO employees (emp_id, firstname, lastname, department, salary) " + "VALUES(?, ?, ?, ?, ?) IF NOT EXISTS",
+        session.execute("INSERT INTO staff.employees (emp_id, firstname, lastname, department, salary) " + "VALUES(?, ?, ?, ?, ?) IF NOT EXISTS",
                 emp_id, firstname, lastname,department, salary);
     }
 
