@@ -5,7 +5,9 @@ import com.pad.Employee;
 import com.pad.database.CassandraDatabase;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Admin on 22.01.2017.
@@ -14,10 +16,11 @@ import java.util.List;
 public class RequestHandler {
     //http://localhost:8081/GET/employee?id=1
     //http://localhost:8081/GET/employee/ALL
+    //http://localhost:8081/GET/employee?offset=3&limit=6
     //http://localhost:8081/DELETE/employee?id=6
     //http://localhost:8081/PUT/employee?id=5&first_name=yuf&last_name=vl&department=it&salary=10000
     //http://localhost:8081/UPDATE/employee?id=5&first_name=yuf&last_name=vl&department=it&salary=10000
-    @RequestMapping(value = "/GET/employee", method = RequestMethod.GET)
+    @RequestMapping(value = "/GET/employee",params = "id", method = RequestMethod.GET)
     public Employee getEmployeeById(@RequestParam(value="id", required=false, defaultValue="0") int id) {
         return Data.getInstance()
                 .getEmployees()
@@ -29,7 +32,24 @@ public class RequestHandler {
 
     @RequestMapping(value = "/GET/employee/ALL", method = RequestMethod.GET)
     public List<Employee> getAll() {
-        return Data.getInstance().getEmployees();
+        return Data.getInstance()
+                .getEmployees()
+                .stream()
+                .sorted(Comparator.comparingInt(Employee::getId))
+                .collect(Collectors.toList());
+    }
+
+    @RequestMapping(value = "GET/employee", method = RequestMethod.GET)
+    public List<Employee> getEmployeesWithOffsetAndLimit(@RequestParam(value = "offset") int offset,
+                                                         @RequestParam(value = "limit") int limit
+    ){
+        return Data.getInstance()
+                .getEmployees()
+                .stream()
+                .skip(offset)
+                .limit(limit)
+                .sorted(Comparator.comparingInt(Employee::getId))
+                .collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/DELETE/employee", method = RequestMethod.DELETE)
@@ -55,9 +75,9 @@ public class RequestHandler {
         cdb.closeConnectToCDB();
     }
 
-    @RequestMapping(value = "/UPDATE/employee", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/UPDATE/employee", method = RequestMethod.POST)
     @ResponseBody
-    public void updateEmployee(@RequestParam("id") int id,
+    public Employee updateEmployee(@RequestParam("id") int id,
                                @RequestParam("first_name") String firstName,
                                @RequestParam("last_name") String lastName,
                                @RequestParam("department") String department,
@@ -66,6 +86,8 @@ public class RequestHandler {
         CassandraDatabase cdb = new CassandraDatabase();
         cdb.openConnectToCDB();
         cdb.updateEmployee(id, firstName, lastName, department, salary);
+        Employee employee = cdb.getEmployeeById(id);
         cdb.closeConnectToCDB();
+        return employee;
     }
 }

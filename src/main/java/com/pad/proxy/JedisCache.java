@@ -27,7 +27,7 @@ public class JedisCache {
 
     public void jedisAdd(String key, String value){
             jedis.sadd(key, value);
-            jedis.expire(key, 10);
+            jedis.expire(key, 20);
 
     }
 

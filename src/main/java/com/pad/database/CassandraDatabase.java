@@ -5,6 +5,7 @@ import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import com.pad.Employee;
+import org.springframework.boot.system.EmbeddedServerPortFileWriter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,6 +142,18 @@ public class CassandraDatabase {
         return employees;
     }
 
+    public Employee getEmployeeById(int id){
+        session.execute("USE " + KEY_SPACE);
+        ResultSet query_result = session.execute("SELECT * FROM " + EMPLOYEE_TABLE + " WHERE "+ EMPLOYEE_ID +" = ?", id);
+        Row row = query_result.one();
+        return new Employee(
+                row.getInt(EMPLOYEE_ID),
+                row.getString(EMPLOYEE_FIRST_NAME),
+                row.getString(EMPLOYEE_LAST_NAME),
+                row.getString(EMPLOYEE_DEPARTMENT),
+                row.getDouble(EMPLOYEE_SALARY)
+        );
+    }
     //обновить запись по id
     public void updateEmployee(int emp_id, String firstName, String lastName, String department, double salary){
         session.execute("USE " + KEY_SPACE);
