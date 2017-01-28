@@ -46,9 +46,9 @@ public class RequestHandler {
         return Data.getInstance()
                 .getEmployees()
                 .stream()
+                .sorted(Comparator.comparingInt(Employee::getId))
                 .skip(offset)
                 .limit(limit)
-                .sorted(Comparator.comparingInt(Employee::getId))
                 .collect(Collectors.toList());
     }
 

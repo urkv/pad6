@@ -53,7 +53,7 @@ public class ProxyRequestHandler {
         return employees;
     }
 
-    @RequestMapping(value = "GET/employee", method = RequestMethod.GET)
+    @RequestMapping(value = "GET/employee", params = {"offset", "limit"}, method = RequestMethod.GET)
     public List<Employee> getEmployeesWithOffsetAndLimit(@RequestParam(value = "offset") int offset,
                                                          @RequestParam(value = "limit") int limit
     ){
@@ -75,7 +75,7 @@ public class ProxyRequestHandler {
     @RequestMapping(value = "/DELETE/employee", method = RequestMethod.DELETE)
     public void deleteEmployeeById(@RequestParam(value="id", required=false, defaultValue="0") int id) throws URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.put(new URI("http://localhost:808"+or12()+"/DELETE/employee?id=" + id), null);
+        restTemplate.delete("http://localhost:808"+or12()+"/DELETE/employee?id=" + id);
     }
 
     @RequestMapping(value = "/PUT/employee")
@@ -85,12 +85,12 @@ public class ProxyRequestHandler {
                                @RequestParam("department") String department,
                                @RequestParam("salary") Double salary) throws MalformedURLException {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.put("http://localhost:808"+or12()+"/INSERT/employee?" +
+        restTemplate.put("http://localhost:808"+or12()+"/PUT/employee?" +
                 "id=" + id +
                 "&first_name=" + firstName +
                 "&last_name=" + lastName +
                 "&department=" + department +
-                "&salary" + salary, null);
+                "&salary=" + salary, null);
     }
 
     @RequestMapping(value = "/UPDATE/employee", method = RequestMethod.POST)
@@ -100,19 +100,19 @@ public class ProxyRequestHandler {
                                @RequestParam("department") String department,
                                @RequestParam("salary") Double salary)  {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.postForObject("http://localhost:808"+or12()+"/INSERT/employee?" +
+        restTemplate.postForObject("http://localhost:808"+or12()+"/UPDATE/employee?" +
                 "id=" + id +
                 "&first_name=" + firstName +
                 "&last_name=" + lastName +
                 "&department=" + department +
-                "&salary" + salary, null, Employee.class);
+                "&salary=" + salary, null, Employee.class);
     }
 
     private String getJASONasString(List<Employee> employees) {
         String serialized = new String();
         try {
             serialized = new ObjectMapper().writeValueAsString(employees);
-            System.out.println(serialized);
+            //System.out.println(serialized);
         } catch (JsonProcessingException ie) {
             ie.printStackTrace();
         }
@@ -123,7 +123,7 @@ public class ProxyRequestHandler {
         String serialized = new String();
         try {
             serialized = new ObjectMapper().writeValueAsString(employee);
-            System.out.println(serialized);
+            //System.out.println(serialized);
         } catch (JsonProcessingException ie) {
             ie.printStackTrace();
         }
@@ -133,7 +133,7 @@ public class ProxyRequestHandler {
     private List<Employee> getEmployees(String s){
         ObjectMapper jacksonMapper = new ObjectMapper();
         List<Employee> deserialized = new ArrayList<>();
-        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n" + s);
+        s = s.substring(1,s.length()-1);
         try {
             deserialized = jacksonMapper.readValue(s, new TypeReference<List<Employee>>() {});
         }catch (JsonProcessingException ie) {
@@ -148,6 +148,7 @@ public class ProxyRequestHandler {
     private Employee getEmployee(String s){
         ObjectMapper jacksonMapper = new ObjectMapper();
         Employee deserialized = new Employee();
+        s = s.substring(1,s.length()-1);
         try {
             deserialized = jacksonMapper.readValue(s, Employee.class);
         }catch (JsonProcessingException ie) {
