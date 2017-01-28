@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/artifactId.iml" filepath="$PROJECT_DIR$/.idea/modules/artifactId.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/artifactId_main.iml" filepath="$PROJECT_DIR$/.idea/modules/artifactId_main.iml" group="artifactId" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/artifactId_test.iml" filepath="$PROJECT_DIR$/.idea/modules/artifactId_test.iml" group="artifactId" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/padlast.iml" filepath="$PROJECT_DIR$/.idea/modules/padlast.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/padlast_main.iml" filepath="$PROJECT_DIR$/.idea/modules/padlast_main.iml" group="padlast" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/padlast_test.iml" filepath="$PROJECT_DIR$/.idea/modules/padlast_test.iml" group="padlast" />
     </modules>
   </component>
 </project>

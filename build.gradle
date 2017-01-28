@@ -23,7 +23,7 @@ dependencies {
     //// https://mvnrepository.com/artifact/com.codahale.metrics/metrics-core
     //compile group: 'com.codahale.metrics', name: 'metrics-core', version: '3.0.2'
     // https://mvnrepository.com/artifact/org.springframework/spring-web
-    compile group: 'org.springframework', name: 'spring-web', version: '4.3.5.RELEASE'
+    //compile group: 'org.springframework', name: 'spring-web', version: '4.3.5.RELEASE'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.4.3.RELEASE'
 

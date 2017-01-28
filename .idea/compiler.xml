@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="artifactId_main" target="1.8" />
       <module name="artifactId_test" target="1.8" />
+      <module name="padlast_main" target="1.8" />
+      <module name="padlast_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

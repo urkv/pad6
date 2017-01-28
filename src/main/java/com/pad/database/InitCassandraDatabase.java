@@ -6,23 +6,23 @@ package com.pad.database;
 public class InitCassandraDatabase {
         public static void main(String[] args) {
 
-            CDB cdb = new CDB();
+            CassandraDatabase cdb = new CassandraDatabase();
             cdb.openConnectToCDB("localhost", 9042);
 
             cdb.prepareCDB();
             //вставляем все данные в таблицу
-            cdb.insertDataToCDB();
+            cdb.fillEmployees();
             //вывод данных из таблицы
-            cdb.showDataFromCDB();
+            cdb.showDataFromEmployees();
 
             //удаление записи
-            cdb.deleteDataInCDB(10);
+            cdb.deleteEmployee(10);
             //вставка запису
-            cdb.insertRecordToDB(10, "adf", "asdf", "asdfasdf", 1000);
+            cdb.insertEmployee(10, "adf", "asdf", "asdfasdf", 1000);
             //изменение записи
-            cdb.updateDataInCDB(10, "Fukiko", "Ogisu", "Operations", 500000);
+            cdb.updateEmployee(10, "Fukiko", "Ogisu", "Operations", 500000);
 
-            cdb.showDataFromCDB();
+            cdb.showDataFromEmployees();
             //закрываем соединение
             cdb.closeConnectToCDB();
 
