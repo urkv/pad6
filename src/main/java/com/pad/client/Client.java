@@ -19,26 +19,41 @@ public class Client {
             Scanner scanner = new Scanner(System.in);
             while(true){
                 String request = scanner.nextLine();
-                if(request.contains("GET")){
-                    Employee employee = restTemplate.getForObject("http://localhost:8081/GET/employee?id=1", Employee.class);
-                    System.out.println(employee.toString());
-                }else if(request.contains("GET")&&request.contains("ALL")){
-
+                if(request.contains("GET")){                        
+//                         if(request.contains("id"))
+//                         {
+//                                 Employee employee = restTemplate.getForEntity(request, Employee.class);
+//                                 System.out.println(employee.toString());
+//                         }
+//                         if(request.contains("offset") || request.contains("ALL"))
+//                         {
+//                                 ResponseEntity<Employee[]> response = restTemplate.getForEntity(request, Employee[].class);
+//                                 List<Employee> employees = Arrays.asList(response.getBody());
+//                                 for (Employee anEmployee : employees) {
+//                                         System.out.println(anEmployee.toString());
+//                                 }
+//                         }
+                        ResponseEntity<Employee[]> response = restTemplate.getForEntity(entityString, Employee[].class);
+                        List<Employee> employees = Arrays.asList(response.getBody());
+                        for (Employee anEmployee : employees) {
+                            System.out.println(anEmployee.toString());
+                        }
                 }else if(request.contains("PUT")){
-
+                    restTemplate.put(request);
+                    System.out.println("WAS PUT!");
                 }else if(request.contains("UPDATE")){
-
+                    restTemplate.update(request);
+                    System.out.println("UPDATED!");
                 }else if(request.contains("DELETE")){
-
+                    restTemplate.delete(request);
+                    System.out.println("DELETED!");
+                }else {
+                    System.out.println("BAD REQUEST!");
                 }
+                 
 
-                ResponseEntity<Employee[]> response = restTemplate.getForEntity("http://localhost:8081/GET/employee/ALL", Employee[].class);
 
-                List<Employee> employees = Arrays.asList(response.getBody());
-                //restTemplate.getForEntity("http://localhost:8081/GET/employee/ALL",List.class, Employee.class);
-                for (Employee employee1 : employees) {
-                    System.out.println(employee1.toString());
-                }
+                    
             }
 
 
