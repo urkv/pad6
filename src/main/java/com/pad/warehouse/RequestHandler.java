@@ -3,9 +3,7 @@ package com.pad.warehouse;
 import com.pad.Data;
 import com.pad.Employee;
 import com.pad.database.CassandraDatabase;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,10 +14,10 @@ import java.util.List;
 public class RequestHandler {
     //http://localhost:8081/GET/employee?id=1
     //http://localhost:8081/GET/employee/ALL
-    //http://localhost:8081/DELETE/employee?id=5
+    //http://localhost:8081/DELETE/employee?id=6
     //http://localhost:8081/PUT/employee?id=5&first_name=yuf&last_name=vl&department=it&salary=10000
     //http://localhost:8081/UPDATE/employee?id=5&first_name=yuf&last_name=vl&department=it&salary=10000
-    @RequestMapping("/GET/employee")
+    @RequestMapping(value = "/GET/employee", method = RequestMethod.GET)
     public Employee getEmployeeById(@RequestParam(value="id", required=false, defaultValue="0") int id) {
         return Data.getInstance()
                 .getEmployees()
@@ -29,12 +27,13 @@ public class RequestHandler {
                 .get();
     }
 
-    @RequestMapping("/GET/employee/ALL")
+    @RequestMapping(value = "/GET/employee/ALL", method = RequestMethod.GET)
     public List<Employee> getAll() {
         return Data.getInstance().getEmployees();
     }
 
-    @RequestMapping("/DELETE/employee")
+    @RequestMapping(value = "/DELETE/employee", method = RequestMethod.DELETE)
+    @ResponseBody
     public void deleteEmployeeById(@RequestParam(value="id", required=false, defaultValue="0") int id) {
         CassandraDatabase cdb = new CassandraDatabase();
         cdb.openConnectToCDB();
@@ -42,7 +41,8 @@ public class RequestHandler {
         cdb.closeConnectToCDB();
     }
 
-    @RequestMapping("/PUT/employee")
+    @RequestMapping(value = "/PUT/employee", method = RequestMethod.PUT)
+    @ResponseBody
     public void insertEmployee(@RequestParam("id") int id,
                                @RequestParam("first_name") String firstName,
                                @RequestParam("last_name") String lastName,
@@ -55,7 +55,8 @@ public class RequestHandler {
         cdb.closeConnectToCDB();
     }
 
-    @RequestMapping("/UPDATE/employee")
+    @RequestMapping(value = "/UPDATE/employee", method = RequestMethod.PATCH)
+    @ResponseBody
     public void updateEmployee(@RequestParam("id") int id,
                                @RequestParam("first_name") String firstName,
                                @RequestParam("last_name") String lastName,

@@ -1,13 +1,17 @@
 package com.pad;
 
 import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-public class Employee implements Serializable {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Employee {
     private int id;
     private String firstName;
     private String lastName;
     private String department;
     private Double salary;
+
+    public Employee(){}
 
     public Employee(int id, String firstName, String lastName, String department, Double salary) {
         this.id = id;
