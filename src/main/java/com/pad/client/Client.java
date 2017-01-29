@@ -6,6 +6,7 @@ package com.pad.client;
 
 import com.pad.Employee;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -19,27 +20,35 @@ public class Client {
         RestTemplate restTemplate = new RestTemplate();
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            String url = scanner.nextLine();
-            if (url.contains("GET")) {
-                if (url.contains("id")) {
-                    Employee employee = restTemplate.getForObject(url, Employee.class);
-                    System.out.println(employee.toString());
-                }else if (url.contains("offset") || url.contains("ALL")) {
-                    ResponseEntity<Employee[]> response = restTemplate.getForEntity(url, Employee[].class);
-                    List<Employee> employees = Arrays.asList(response.getBody());
-                    employees.forEach(System.out::println);
+            try {
+                String url = scanner.nextLine();
+                if (url.contains("GET")) {
+                    if (url.contains("id")) {
+                        Employee employee = restTemplate.getForObject(url, Employee.class);
+                        System.out.println(employee.toString());
+                    }else if (url.contains("offset") || url.contains("ALL")) {
+                        ResponseEntity<Employee[]> response = restTemplate.getForEntity(url, Employee[].class);
+                        List<Employee> employees = Arrays.asList(response.getBody());
+                        employees.forEach(System.out::println);
+                    }
+                } else if (url.contains("PUT")) {
+                    restTemplate.put(new URI(url), null);
+                    System.out.println("WAS PUT!");
+                } else if (url.contains("UPDATE")) {
+                    restTemplate.postForObject(url, null, Employee.class);
+                    System.out.println("UPDATED!");
+                } else if (url.contains("DELETE")) {
+                    restTemplate.delete(url);
+                    System.out.println("DELETED!");
+                } else {
+                    System.out.println("BAD REQUEST!");
                 }
-            } else if (url.contains("PUT")) {
-                restTemplate.put(new URI(url), null);
-                System.out.println("WAS PUT!");
-            } else if (url.contains("UPDATE")) {
-                restTemplate.postForObject(url, null, Employee.class);
-                System.out.println("UPDATED!");
-            } else if (url.contains("DELETE")) {
-                restTemplate.delete(url);
-                System.out.println("DELETED!");
-            } else {
+            } catch (RestClientException e) {
                 System.out.println("BAD REQUEST!");
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                System.out.println("BAD REQUEST!");
+                e.printStackTrace();
             }
         }
     }

@@ -15,6 +15,7 @@ public class DataUpdateService extends Thread {
             try {
                 cdb.openConnectToCDB();
                 Data.getInstance().updateData(cdb.getAllEmployees());
+                System.out.println("DATA UPDATED FROM CDB");
                 cdb.closeConnectToCDB();
                 Thread.sleep(UPDATE_PERIOD);
             } catch (InterruptedException e) {

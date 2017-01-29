@@ -1,9 +1,5 @@
 package com.pad;
 
-import java.io.Serializable;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Employee {
     private int id;
     private String firstName;

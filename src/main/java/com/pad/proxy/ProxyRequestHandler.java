@@ -13,9 +13,11 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Admin on 28.01.2017.
@@ -162,15 +164,6 @@ public class ProxyRequestHandler {
 
     private int or12(){
         Random random = new Random();
-        return random.nextInt(2-1) + 1;//int Result = r.nextInt(High-Low) + Low;
+        return random.nextInt(3-1) + 1;//int Result = r.nextInt(High-Low) + Low;
     }
 }
-
-
-
-//http://localhost:8080/GET/employee?id=1
-//http://localhost:8080/GET/employee/ALL
-//http://localhost:8080/GET/employee?offset=3&limit=6
-//http://localhost:8080/DELETE/employee?id=6
-//http://localhost:8080/PUT/employee?id=5&first_name=yuf&last_name=vl&department=it&salary=10000
-//http://localhost:8080/UPDATE/employee?id=5&first_name=yuf&last_name=vl&department=it&salary=10000

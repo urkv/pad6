@@ -1,0 +1,15 @@
+TO WAREHOUSE 8081
+http://localhost:8081/GET/employee?id=1
+http://localhost:8081/GET/employee/ALL
+http://localhost:8081/GET/employee?offset=3&limit=6
+http://localhost:8081/DELETE/employee?id=6
+http://localhost:8081/PUT/employee?id=22&first_name=yuf&last_name=vl&department=it&salary=10000
+http://localhost:8081/UPDATE/employee?id=5&first_name=yuf&last_name=vl&department=it&salary=10000
+
+TO PROXY
+http://localhost:8080/GET/employee?id=1
+http://localhost:8080/GET/employee/ALL
+http://localhost:8080/GET/employee?offset=3&limit=6
+http://localhost:8080/DELETE/employee?id=6
+http://localhost:8080/PUT/employee?id=5&first_name=yuf&last_name=vl&department=it&salary=10000
+http://localhost:8080/UPDATE/employee?id=5&first_name=yuf&last_name=vl&department=it&salary=10000

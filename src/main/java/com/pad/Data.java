@@ -10,12 +10,12 @@ public class Data {
     private static Data ourInstance = new Data();
     private List<Employee> employees = new ArrayList<>();
 
-    private Data() {
-    }
+    private Data() {}
 
     public static Data getInstance() {
         return ourInstance;
     }
+
     public List<Employee> getEmployees() {
         return employees;
     }

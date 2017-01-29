@@ -13,13 +13,8 @@ import java.util.stream.Collectors;
  * Created by Admin on 22.01.2017.
  */
 @RestController
-public class RequestHandler {
-    //http://localhost:8081/GET/employee?id=1
-    //http://localhost:8081/GET/employee/ALL
-    //http://localhost:8081/GET/employee?offset=3&limit=6
-    //http://localhost:8081/DELETE/employee?id=6
-    //http://localhost:8081/PUT/employee?id=5&first_name=yuf&last_name=vl&department=it&salary=10000
-    //http://localhost:8081/UPDATE/employee?id=5&first_name=yuf&last_name=vl&department=it&salary=10000
+public class WarehouseRequestHandler {
+
     @RequestMapping(value = "/GET/employee",params = "id", method = RequestMethod.GET)
     public Employee getEmployeeById(@RequestParam(value="id", required=false, defaultValue="0") int id) {
         return Data.getInstance()

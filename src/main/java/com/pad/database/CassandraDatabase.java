@@ -5,7 +5,6 @@ import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import com.pad.Employee;
-import org.springframework.boot.system.EmbeddedServerPortFileWriter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,7 @@ public class CassandraDatabase {
     public void closeConnectToCDB(){
         //Закрываем соединение
         cluster.close();
-        System.out.println("Закрываем соединение");
+        //System.out.println("Закрываем соединение");
     }
     //подготовка БД
     void prepareCDB(){
